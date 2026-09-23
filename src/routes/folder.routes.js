@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { createFolder, getFolders } from "../controllers/folder.controllers";
+import { createFolder, deleteFolder, getFolders, updateFolder, viewFolderContent } from "../controllers/folder.controllers.js";
 
 const router = Router();
 
-router.route("/folders").get(getFolders).post(createFolder);
+router.route("/").get(getFolders).post(createFolder);
+router.route('/:folderId').get(viewFolderContent).put(updateFolder).delete(deleteFolder)
 
 export default router;
