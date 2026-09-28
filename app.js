@@ -4,6 +4,7 @@ import authRouter from './src/routes/auth.route.js'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from './src/config/passport.js'
+import { isAuthenticated } from './src/middleware/auth.middleware.js'
 const app = express()
 
 app.use(express.json())
@@ -15,7 +16,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         store: MongoStore.create({
-            monogoUrl: process.env.MONGO_URI,
+            mongoUrl: process.env.MONGO_URI,
             dbName: 'file_uploader',
             collectionName: 'sessions',
         }),
@@ -27,7 +28,7 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/folders',folderRouter)
+app.use('/folders',isAuthenticated,folderRouter)
 app.use('/auth',authRouter)
 
 
