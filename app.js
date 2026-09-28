@@ -1,6 +1,7 @@
 import express, { urlencoded } from 'express'
 import folderRouter from './src/routes/folder.routes.js'
-import authRouter from './src/routes/auth.route.js'
+import authRouter from './src/routes/auth.routes.js'
+import fileRouter from './src/routes/file.routes.js'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from './src/config/passport.js'
@@ -30,6 +31,6 @@ app.use(passport.session())
 
 app.use('/folders',isAuthenticated,folderRouter)
 app.use('/auth',authRouter)
-
+app.use(isAuthenticated,fileRouter)
 
 export default app
