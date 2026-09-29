@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express, { urlencoded } from 'express'
 import folderRouter from './src/routes/folder.routes.js'
 import authRouter from './src/routes/auth.routes.js'
