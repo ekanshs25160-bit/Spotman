@@ -37,7 +37,7 @@ export const downloadFile = async(req,res)=>{
 
 export const deleteFile = async(req,res)=>{
     const {fileId} = req.params
-    const file = await File.findByIdAndDelete(fileId)
+    const file = await File.findOneAndDelete({_id: fileId, owner: req.user._id})
     if(!file) {
         return res.status(404).json('File not found')
     }
